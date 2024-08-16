@@ -6,7 +6,6 @@
     <title>Retseptid</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<>
     <div class="container">
         <h2 class="text-center mb-5">10 esimest retsepti</h2>
         <?php
