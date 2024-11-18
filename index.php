@@ -56,7 +56,7 @@
 
         <h2 class="text-center mt-5 mb-5">Keskmised kalorid tüübi järgi</h2>
         <?php
-            $query = "SELECT tyyp, AVG(kalorid) AS keskised_kalorid FROM `retseptid` GROUP BY tyyp";
+            $query = "SELECT tyyp, AVG(kalorid) AS keskmised_kalorid FROM `retseptid` GROUP BY tyyp";
             $result = mysqli_query($conn, $query);
         ?>
         <table class="table">
