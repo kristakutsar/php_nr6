@@ -9,11 +9,38 @@
     <div class="container">
         <h2 class="text-center mb-5">10 esimest retsepti</h2>
         <?php
-            $conn = mysqli_connect("localhost", "krista","krista","retseptid");
-            $query = "SELECT id, nimi, kalorid FROM `retseptid` LIMIT 10";
-            $result = mysqli_query($conn, $query);
-        ?>
-        <table class="table">
+// Create database connection
+$conn = mysqli_connect("localhost", "krista", "krista", "retseptid");
+
+// Check the connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Query to select data
+$query = "SELECT id, nimi, kalorid FROM retseptid LIMIT 10";
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retseptid</title>
+    <link rel="stylesheet" href="path/to/your/bootstrap.css">
+</head>
+<body>
+
+    <div class="container mt-4">
+        <h2>Retseptid Table</h2>
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -24,19 +51,21 @@
             <tbody>
                 <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                     <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo $row['nimi']; ?></td>
-                        <td><?php echo $row['kalorid']; ?></td>
+                        <td><?php echo htmlspecialchars($row['id']); ?></td>
+                        <td><?php echo htmlspecialchars($row['nimi']); ?></td>
+                        <td><?php echo htmlspecialchars($row['kalorid']); ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
+    </div>
 
-        <h2 class="text-center mb-5 mt-5">Õhtusöögiretseptid kalorite järgi kahanevas järjekorras</h2>
-        <?php
-            $query = "SELECT tyyp, kalorid FROM `retseptid` WHERE tyyp = 'õhtu' ORDER BY kalorid DESC";
-            $result = mysqli_query($conn, $query);
-        ?>
+    <!-- Make sure to close the connection -->
+    <?php
+    // Free the result set and close the connection
+    mysqli_free_result($result);
+    mysqli_close($conn);
+    ?>
         <table class="table">
             <thead>
                 <tr>
